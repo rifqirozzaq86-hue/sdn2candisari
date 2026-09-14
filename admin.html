@@ -1,0 +1,698 @@
+<!doctype html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="Panel Administrator SD Negeri 2 Candisari Boyolali. Pusat Pengelolaan Konten Website, Berita, Galeri, Guru, dan PPDB." />
+  <meta name="theme-color" content="#0b1f3a" />
+
+  <title>Dashboard Admin - SD Negeri 2 Candisari Boyolali</title>
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="assets/icon/favicon.ico" type="image/x-icon" />
+
+  <!-- Google Fonts: Poppins -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- Custom Admin Dashboard CSS -->
+  <link rel="stylesheet" href="dist/css/admin.css" />
+</head>
+
+<body>
+  <!-- ================= SIDEBAR ================= -->
+  <aside class="admin-sidebar">
+    <div class="sidebar-header">
+      <img src="assets/images/logo.jpg" alt="Logo SD Negeri 2 Candisari" class="sidebar-logo" />
+      <div class="sidebar-title">
+        <h2>SDN 2 Candisari</h2>
+        <span>Panel Administrator</span>
+      </div>
+    </div>
+
+    <ul class="sidebar-menu">
+      <li class="menu-heading">Menu Utama</li>
+      <li class="menu-item active">
+        <button type="button" data-tab="overview" data-title="Ringkasan Dashboard"
+          data-subtitle="Statistik dan ikhtisar konten website sekolah">
+          <i class="fa-solid fa-gauge-high"></i>
+          <span>Ringkasan (Overview)</span>
+        </button>
+      </li>
+
+      <li class="menu-heading">Kelola Konten</li>
+      <li class="menu-item">
+        <button type="button" data-tab="profil" data-title="Profil & Visi Misi"
+          data-subtitle="Ubah identitas sekolah, kepala sekolah, akreditasi, visi-misi & sejarah">
+          <i class="fa-solid fa-school"></i>
+          <span>Profil & Visi Misi</span>
+        </button>
+      </li>
+      <li class="menu-item">
+        <button type="button" data-tab="berita" data-title="Manajemen Berita & Informasi"
+          data-subtitle="Tambah, sunting, dan publikasikan artikel atau pengumuman sekolah">
+          <i class="fa-solid fa-newspaper"></i>
+          <span>Berita & Informasi</span>
+        </button>
+      </li>
+      <li class="menu-item">
+        <button type="button" data-tab="guru" data-title="Data Guru & Tenaga Pendidik"
+          data-subtitle="Kelola daftar guru, staf, NIP, dan jabatan pengajar">
+          <i class="fa-solid fa-chalkboard-user"></i>
+          <span>Guru & Pegawai</span>
+        </button>
+      </li>
+      <li class="menu-item">
+        <button type="button" data-tab="galeri" data-title="Galeri Kegiatan & Fasilitas"
+          data-subtitle="Kelola foto kegiatan siswa dan dokumentasi sarana prasarana">
+          <i class="fa-solid fa-images"></i>
+          <span>Galeri & Sarana</span>
+        </button>
+      </li>
+      <li class="menu-item">
+        <button type="button" data-tab="ppdb" data-title="Pengaturan PPDB Online"
+          data-subtitle="Atur tautan pendaftaran Google Form, kuota, dan syarat penerimaan siswa">
+          <i class="fa-solid fa-user-plus"></i>
+          <span>Pendaftaran PPDB</span>
+        </button>
+      </li>
+      <li class="menu-item">
+        <button type="button" data-tab="prestasi" data-title="Prestasi & Penghargaan"
+          data-subtitle="Daftar kejuaraan dan pencapaian prestasi akademik/non-akademik siswa">
+          <i class="fa-solid fa-trophy"></i>
+          <span>Prestasi Siswa</span>
+        </button>
+      </li>
+
+      <li class="menu-heading">Sistem & Kontak</li>
+      <li class="menu-item">
+        <button type="button" data-tab="kontak" data-title="Kontak & Media Sosial"
+          data-subtitle="Kelola alamat sekolah, nomor WhatsApp, email, dan link medsos resmi">
+          <i class="fa-solid fa-address-book"></i>
+          <span>Kontak & Medsos</span>
+        </button>
+      </li>
+    </ul>
+
+    <div class="sidebar-footer">
+      <div class="admin-profile">
+        <div class="admin-avatar">AD</div>
+        <div class="admin-info">
+          <span>Administrator</span>
+          <small>admin@candisari</small>
+        </div>
+      </div>
+      <button type="button" class="btn-logout" id="btnLogout" title="Keluar dari Admin" aria-label="Keluar dari Admin">
+        <i class="fa-solid fa-arrow-right-from-bracket"></i>
+      </button>
+    </div>
+  </aside>
+
+  <!-- ================= MAIN CONTENT AREA ================= -->
+  <main class="admin-main">
+    <!-- Top Header -->
+    <header class="admin-header">
+      <div class="header-left">
+        <button type="button" class="btn-toggle-sidebar" id="btnToggleSidebar" aria-label="Toggle Sidebar">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+        <div class="header-breadcrumb">
+          <h1 id="pageTitle">Ringkasan Dashboard</h1>
+          <p id="pageSubtitle">
+            Statistik dan ikhtisar konten website sekolah
+          </p>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <a href="index.html" target="_blank" rel="noopener noreferrer" class="btn-view-site">
+          <i class="fa-solid fa-globe"></i>
+          <span>Lihat Website</span>
+        </a>
+        <button type="button" class="btn-save-all" id="btnSaveAll">
+          <i class="fa-solid fa-floppy-disk"></i>
+          <span>Simpan Semua</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Panel Containers -->
+    <div class="admin-content">
+      <!-- ================= PANEL 1: OVERVIEW ================= -->
+      <section class="tab-panel active" id="panel-overview">
+        <!-- Stats Grid -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon blue">
+              <i class="fa-solid fa-newspaper"></i>
+            </div>
+            <div class="stat-details">
+              <h3 id="statTotalNews">3</h3>
+              <p>Total Berita Sekolah</p>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon emerald">
+              <i class="fa-solid fa-chalkboard-user"></i>
+            </div>
+            <div class="stat-details">
+              <h3 id="statTotalGuru">4</h3>
+              <p>Guru & Tenaga Pendidik</p>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon amber">
+              <i class="fa-solid fa-images"></i>
+            </div>
+            <div class="stat-details">
+              <h3 id="statTotalGaleri">6</h3>
+              <p>Foto Galeri & Fasilitas</p>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon purple">
+              <i class="fa-solid fa-bullhorn"></i>
+            </div>
+            <div class="stat-details">
+              <h3 id="statPpdbStatus">Buka</h3>
+              <p>Status PPDB Online</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Actions & Status Card -->
+        <div class="form-card">
+          <h3 class="form-card-title">
+            <i class="fa-solid fa-bolt"></i> Panduan Singkat Administrator
+          </h3>
+          <p style="font-size: 0.88rem; line-height: 1.6; color: #475569; margin-bottom: 16px;">
+            Selamat datang di <strong>Pusat Kendali & Pengelolaan Website SD Negeri 2 Candisari</strong>.
+            Gunakan menu di sisi kiri untuk memperbarui profil sekolah, menerbitkan berita kegiatan terbaru, mengubah
+            data guru, menambah foto galeri kegiatan, serta mengatur tautan formulir pendaftaran PPDB Online.
+          </p>
+          <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+            <button type="button" class="btn-primary-add" onclick="document.querySelector('[data-tab=berita]').click()">
+              <i class="fa-solid fa-plus"></i> Tambah Berita Baru
+            </button>
+            <button type="button" class="btn-view-site" onclick="document.querySelector('[data-tab=guru]').click()">
+              <i class="fa-solid fa-user-plus"></i> Kelola Data Guru
+            </button>
+            <button type="button" class="btn-view-site" onclick="document.querySelector('[data-tab=ppdb]').click()">
+              <i class="fa-solid fa-file-pen"></i> Pengaturan PPDB
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= PANEL 2: PROFIL & VISI MISI ================= -->
+      <section class="tab-panel" id="panel-profil">
+        <form id="formProfilSekolah">
+          <div class="form-card">
+            <h3 class="form-card-title">
+              <i class="fa-solid fa-id-card"></i> Identitas & Informasi Sekolah
+            </h3>
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label class="form-label" for="profNama">Nama Sekolah</label>
+                <input type="text" id="profNama" class="form-control" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="profKepala">Nama Kepala Sekolah</label>
+                <input type="text" id="profKepala" class="form-control" required />
+              </div>
+            </div>
+
+            <div class="form-grid-3">
+              <div class="form-group">
+                <label class="form-label" for="profNpsn">NPSN</label>
+                <input type="text" id="profNpsn" class="form-control" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="profStatus">Status Sekolah</label>
+                <select id="profStatus" class="form-control">
+                  <option value="Negeri">Negeri</option>
+                  <option value="Swasta">Swasta</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="profAkreditasi">Akreditasi</label>
+                <select id="profAkreditasi" class="form-control">
+                  <option value="A">A (Unggul)</option>
+                  <option value="B">B (Baik)</option>
+                  <option value="C">C</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-card">
+            <h3 class="form-card-title">
+              <i class="fa-solid fa-bullseye"></i> Visi, Misi & Sejarah Sekolah
+            </h3>
+            <div class="form-group">
+              <label class="form-label" for="profVisi">Visi Sekolah</label>
+              <textarea id="profVisi" class="form-control" rows="3" required></textarea>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="profMisi">Misi Sekolah (Gunakan baris baru untuk setiap poin)</label>
+              <textarea id="profMisi" class="form-control" rows="4" required></textarea>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="profSejarah">Sejarah Singkat Sekolah</label>
+              <textarea id="profSejarah" class="form-control" rows="4" required></textarea>
+            </div>
+
+            <button type="submit" class="btn-primary-add">
+              <i class="fa-solid fa-floppy-disk"></i> Simpan Perubahan Profil
+            </button>
+          </div>
+        </form>
+      </section>
+
+      <!-- ================= PANEL 3: BERITA & INFORMASI ================= -->
+      <section class="tab-panel" id="panel-berita">
+        <div class="panel-header-box">
+          <div>
+            <h2>Daftar Berita & Pengumuman</h2>
+            <p>Kelola artikel berita dan publikasi kegiatan sekolah</p>
+          </div>
+          <button type="button" class="btn-primary-add" id="btnAddBerita">
+            <i class="fa-solid fa-plus"></i> Tambah Berita Baru
+          </button>
+        </div>
+
+        <div class="table-responsive">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th style="width: 50px;">No</th>
+                <th style="width: 80px;">Foto</th>
+                <th>Judul Berita</th>
+                <th>Kategori</th>
+                <th>Tanggal</th>
+                <th>Status</th>
+                <th style="width: 100px;">Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="tableBodyBerita">
+              <!-- Dynamic Rows -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ================= PANEL 4: DATA GURU ================= -->
+      <section class="tab-panel" id="panel-guru">
+        <div class="panel-header-box">
+          <div>
+            <h2>Data Guru & Tenaga Pendidik</h2>
+            <p>Daftar profil pengajar dan staf kependidikan SD Negeri 2 Candisari</p>
+          </div>
+          <button type="button" class="btn-primary-add" id="btnAddGuru">
+            <i class="fa-solid fa-user-plus"></i> Tambah Guru Baru
+          </button>
+        </div>
+
+        <div class="table-responsive">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th style="width: 50px;">No</th>
+                <th style="width: 80px;">Foto</th>
+                <th>Nama Lengkap & Gelar</th>
+                <th>NIP</th>
+                <th>Jabatan / Tugas</th>
+                <th style="width: 100px;">Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="tableBodyGuru">
+              <!-- Dynamic Rows -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ================= PANEL 5: GALERI & FASILITAS ================= -->
+      <section class="tab-panel" id="panel-galeri">
+        <div class="panel-header-box">
+          <div>
+            <h2>Dokumentasi Galeri & Fasilitas</h2>
+            <p>Kelola koleksi foto sarana prasarana dan dokumentasi kegiatan</p>
+          </div>
+          <button type="button" class="btn-primary-add" id="btnAddGaleri">
+            <i class="fa-solid fa-upload"></i> Tambah Foto Galeri
+          </button>
+        </div>
+
+        <div class="gallery-admin-grid" id="gridGaleri">
+          <!-- Dynamic Cards -->
+        </div>
+      </section>
+
+      <!-- ================= PANEL 6: PPDB ONLINE ================= -->
+      <section class="tab-panel" id="panel-ppdb">
+        <form id="formPpdb">
+          <div class="form-card">
+            <h3 class="form-card-title">
+              <i class="fa-solid fa-graduation-cap"></i> Pengaturan PPDB (Penerimaan Siswa Baru)
+            </h3>
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label class="form-label" for="ppdbStatus">Status Penerimaan Siswa</label>
+                <select id="ppdbStatus" class="form-control">
+                  <option value="Buka">Pendaftaran Dibuka (Aktif)</option>
+                  <option value="Tutup">Pendaftaran Ditutup</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="ppdbTahun">Tahun Ajaran</label>
+                <input type="text" id="ppdbTahun" class="form-control" value="2026/2027" required />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="ppdbLink">Tautan Formulir Pendaftaran (Google Form / Portal)</label>
+              <input type="url" id="ppdbLink" class="form-control" required />
+            </div>
+
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label class="form-label" for="ppdbKuota">Perkiraan Kuota Siswa</label>
+                <input type="text" id="ppdbKuota" class="form-control" value="60 Siswa" />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="ppdbBiaya">Biaya Pendaftaran</label>
+                <input type="text" id="ppdbBiaya" class="form-control" value="Gratis (0 Rupiah)" />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="ppdbDesc">Pernyataan / Tujuan PPDB</label>
+              <textarea id="ppdbDesc" class="form-control" rows="3"></textarea>
+            </div>
+
+            <button type="submit" class="btn-primary-add">
+              <i class="fa-solid fa-floppy-disk"></i> Simpan Pengaturan PPDB
+            </button>
+          </div>
+        </form>
+      </section>
+
+      <!-- ================= PANEL 7: PRESTASI ================= -->
+      <section class="tab-panel" id="panel-prestasi">
+        <div class="form-card">
+          <h3 class="form-card-title">
+            <i class="fa-solid fa-trophy"></i> Tambah Prestasi Siswa
+          </h3>
+          <form id="formPrestasi">
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label class="form-label" for="prestasiNama">Nama Kejuaraan / Lomba</label>
+                <input type="text" id="prestasiNama" class="form-control"
+                  placeholder="Contoh: Juara 1 Lomba Cerdas Cermat" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="prestasiTingkat">Tingkat Kejuaraan</label>
+                <input type="text" id="prestasiTingkat" class="form-control"
+                  placeholder="Contoh: Kecamatan / Kabupaten / Provinsi" required />
+              </div>
+            </div>
+
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label class="form-label" for="prestasiTahun">Tahun Perolehan</label>
+                <input type="text" id="prestasiTahun" class="form-control" value="2026" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="prestasiPeraih">Nama Siswa / Tim Peraih</label>
+                <input type="text" id="prestasiPeraih" class="form-control" placeholder="Nama siswa atau tim"
+                  required />
+              </div>
+            </div>
+
+            <button type="submit" class="btn-primary-add">
+              <i class="fa-solid fa-plus"></i> Tambah Data Prestasi
+            </button>
+          </form>
+        </div>
+
+        <div class="table-responsive" style="margin-top: 24px;">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th style="width: 50px;">No</th>
+                <th>Nama Kejuaraan</th>
+                <th>Tingkat</th>
+                <th>Tahun</th>
+                <th>Peraih / Siswa</th>
+                <th style="width: 80px;">Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="tableBodyPrestasi">
+              <!-- Dynamic Rows -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ================= PANEL 8: KONTAK & MEDSOS ================= -->
+      <section class="tab-panel" id="panel-kontak">
+        <form id="formKontak">
+          <div class="form-card">
+            <h3 class="form-card-title">
+              <i class="fa-solid fa-address-card"></i> Informasi Kontak Resmi
+            </h3>
+            <div class="form-group">
+              <label class="form-label" for="kontakAlamat">Alamat Lengkap Sekolah</label>
+              <textarea id="kontakAlamat" class="form-control" rows="2" required></textarea>
+            </div>
+
+            <div class="form-grid-3">
+              <div class="form-group">
+                <label class="form-label" for="kontakEmail">Email Sekolah</label>
+                <input type="email" id="kontakEmail" class="form-control" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="kontakTelp">No. Telepon / Fax</label>
+                <input type="text" id="kontakTelp" class="form-control" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="kontakWa">No. WhatsApp Layanan</label>
+                <input type="text" id="kontakWa" class="form-control" required />
+              </div>
+            </div>
+          </div>
+
+          <div class="form-card">
+            <h3 class="form-card-title">
+              <i class="fa-solid fa-share-nodes"></i> Tautan Media Sosial Resmi
+            </h3>
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label class="form-label" for="kontakFb">Facebook URL</label>
+                <input type="url" id="kontakFb" class="form-control" placeholder="https://facebook.com/..." />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="kontakIg">Instagram URL</label>
+                <input type="url" id="kontakIg" class="form-control" placeholder="https://instagram.com/..." />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="kontakYt">YouTube URL</label>
+                <input type="url" id="kontakYt" class="form-control" placeholder="https://youtube.com/..." />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="kontakTt">TikTok URL</label>
+                <input type="url" id="kontakTt" class="form-control" placeholder="https://tiktok.com/@..." />
+              </div>
+            </div>
+
+            <button type="submit" class="btn-primary-add">
+              <i class="fa-solid fa-floppy-disk"></i> Simpan Kontak & Medsos
+            </button>
+          </div>
+        </form>
+      </section>
+    </div>
+  </main>
+
+  <!-- ================= MODALS ================= -->
+  <!-- Modal Berita -->
+  <div class="modal-overlay" id="modalBerita">
+    <div class="modal-container">
+      <button type="button" class="modal-close-btn" id="closeBeritaModalBtn">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <h3 class="modal-title" id="modalBeritaTitle">Tambah Berita Baru</h3>
+      <form id="formBerita">
+        <div class="form-group">
+          <label class="form-label" for="beritaJudul">Judul Berita</label>
+          <input type="text" id="beritaJudul" class="form-control" required />
+        </div>
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label class="form-label" for="beritaKategori">Kategori</label>
+            <select id="beritaKategori" class="form-control">
+              <option value="Kegiatan">Kegiatan Sekolah</option>
+              <option value="Akademik">Akademik</option>
+              <option value="Literasi">Literasi</option>
+              <option value="Pengumuman">Pengumuman</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="beritaTanggal">Tanggal</label>
+            <input type="date" id="beritaTanggal" class="form-control" required />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="beritaGambar">Foto Berita</label>
+          <div class="file-upload-wrapper">
+            <label class="file-upload-label" for="beritaGambar">
+              <i class="fa-solid fa-cloud-arrow-up"></i>
+              <span id="beritaGambarName">Klik untuk memilih foto dari komputer...</span>
+            </label>
+            <input type="file" id="beritaGambar" class="file-input-hidden" accept="image/*" />
+          </div>
+          <div class="img-preview-wrapper" id="beritaImgPreviewWrapper" style="display:none;">
+            <img id="beritaImgPreview" src="" alt="Preview" class="img-preview" />
+            <button type="button" class="btn-clear-img" id="beritaClearImg" title="Hapus Foto">
+              <i class="fa-solid fa-xmark"></i> Hapus
+            </button>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="beritaRingkasan">Ringkasan Berita</label>
+          <textarea id="beritaRingkasan" class="form-control" rows="3" required></textarea>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-modal-cancel"
+            onclick="document.getElementById('modalBerita').classList.remove('open')">
+            Batal
+          </button>
+          <button type="submit" class="btn-modal-submit">
+            Simpan Berita
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal Guru -->
+  <div class="modal-overlay" id="modalGuru">
+    <div class="modal-container">
+      <button type="button" class="modal-close-btn" id="closeGuruModalBtn">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <h3 class="modal-title" id="modalGuruTitle">Tambah Guru / Tendik</h3>
+      <form id="formGuru">
+        <div class="form-group">
+          <label class="form-label" for="guruNama">Nama Lengkap & Gelar</label>
+          <input type="text" id="guruNama" class="form-control" required />
+        </div>
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label class="form-label" for="guruNip">NIP</label>
+            <input type="text" id="guruNip" class="form-control" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="guruJabatan">Jabatan / Guru Kelas</label>
+            <input type="text" id="guruJabatan" class="form-control" placeholder="Contoh: Guru Kelas IV" required />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="guruGambar">Foto Guru</label>
+          <div class="file-upload-wrapper">
+            <label class="file-upload-label" for="guruGambar">
+              <i class="fa-solid fa-cloud-arrow-up"></i>
+              <span id="guruGambarName">Klik untuk memilih foto dari komputer...</span>
+            </label>
+            <input type="file" id="guruGambar" class="file-input-hidden" accept="image/*" />
+          </div>
+          <div class="img-preview-wrapper" id="guruImgPreviewWrapper" style="display:none;">
+            <img id="guruImgPreview" src="" alt="Preview" class="img-preview" />
+            <button type="button" class="btn-clear-img" id="guruClearImg" title="Hapus Foto">
+              <i class="fa-solid fa-xmark"></i> Hapus
+            </button>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-modal-cancel"
+            onclick="document.getElementById('modalGuru').classList.remove('open')">
+            Batal
+          </button>
+          <button type="submit" class="btn-modal-submit">Simpan Data Guru</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal Galeri -->
+  <div class="modal-overlay" id="modalGaleri">
+    <div class="modal-container">
+      <button type="button" class="modal-close-btn" id="closeGaleriModalBtn">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <h3 class="modal-title">Tambah Foto Galeri</h3>
+      <form id="formGaleri">
+        <div class="form-group">
+          <label class="form-label" for="galeriJudul">Judul / Keterangan Foto</label>
+          <input type="text" id="galeriJudul" class="form-control" placeholder="Contoh: Kegiatan Upacara Bendera"
+            required />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="galeriKategori">Kategori</label>
+          <select id="galeriKategori" class="form-control">
+            <option value="Kegiatan">Kegiatan Siswa</option>
+            <option value="Fasilitas">Fasilitas & Sarana</option>
+            <option value="Keagamaan">Keagamaan</option>
+            <option value="Lingkungan">Lingkungan Sekolah</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="galeriGambar">Foto Galeri</label>
+          <div class="file-upload-wrapper">
+            <label class="file-upload-label" for="galeriGambar">
+              <i class="fa-solid fa-cloud-arrow-up"></i>
+              <span id="galeriGambarName">Klik untuk memilih foto dari komputer...</span>
+            </label>
+            <input type="file" id="galeriGambar" class="file-input-hidden" accept="image/*" />
+          </div>
+          <div class="img-preview-wrapper" id="galeriImgPreviewWrapper" style="display:none;">
+            <img id="galeriImgPreview" src="" alt="Preview" class="img-preview" />
+            <button type="button" class="btn-clear-img" id="galeriClearImg" title="Hapus Foto">
+              <i class="fa-solid fa-xmark"></i> Hapus
+            </button>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-modal-cancel"
+            onclick="document.getElementById('modalGaleri').classList.remove('open')">
+            Batal
+          </button>
+          <button type="submit" class="btn-modal-submit">Simpan Foto</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Notifications -->
+  <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+  <!-- Scripts -->
+  <script src="js/admin.js"></script>
+</body>
+
+</html>

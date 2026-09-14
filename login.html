@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Portal Login Administrator SD Negeri 2 Candisari Boyolali. Pusat pengelolaan konten website dan sistem informasi sekolah."
+    />
+    <meta name="theme-color" content="#0b1f3a" />
+
+    <title>Login Administrator - SD Negeri 2 Candisari Boyolali</title>
+
+    <!-- Favicon -->
+    <link
+      rel="shortcut icon"
+      href="assets/icon/favicon.ico"
+      type="image/x-icon"
+    />
+
+    <!-- Google Fonts: Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <!-- Custom Login CSS -->
+    <link rel="stylesheet" href="dist/css/login.css" />
+  </head>
+
+  <body>
+    <!-- Ambient Background Effects -->
+    <div class="bg-ambient" aria-hidden="true"></div>
+    <div class="bg-pattern" aria-hidden="true"></div>
+
+    <!-- Header Navigation Bar -->
+    <header class="top-nav">
+      <a href="index.html" class="btn-back-home" id="btnBackHome">
+        <i class="fa-solid fa-arrow-left"></i>
+        <span>Kembali ke Beranda</span>
+      </a>
+
+      <div class="badge-portal">
+        <i class="fa-solid fa-shield-halved"></i>
+        <span>Portal Administrator</span>
+      </div>
+    </header>
+
+    <!-- Main Card Container -->
+    <main class="login-wrapper">
+      <section class="login-card">
+        <!-- Left Side: Hero Info & School Identity -->
+        <div class="login-banner">
+          <div class="banner-bg-img" aria-hidden="true"></div>
+
+          <div class="banner-header">
+            <img
+              src="assets/images/logo.jpg"
+              alt="Logo SD Negeri 2 Candisari"
+              class="banner-logo"
+            />
+            <div class="banner-title">
+              <h2>SD Negeri 2 Candisari</h2>
+              <span>Kabupaten Boyolali</span>
+            </div>
+          </div>
+
+          <div class="banner-body">
+            <div class="banner-tagline">
+              <i class="fa-solid fa-shield-halved"></i> Panel Administrator
+            </div>
+            <h1 class="banner-headline">
+              Pusat Kendali & Pengelolaan Website
+            </h1>
+            <p class="banner-desc">
+              Akses khusus staf administrator untuk memperbarui berita, galeri kegiatan, fasilitas, dan informasi resmi sekolah.
+            </p>
+
+            <ul class="feature-list">
+              <li class="feature-item">
+                <div class="feature-icon">
+                  <i class="fa-solid fa-check"></i>
+                </div>
+                <span>Kelola informasi profil & berita sekolah</span>
+              </li>
+              <li class="feature-item">
+                <div class="feature-icon">
+                  <i class="fa-solid fa-check"></i>
+                </div>
+                <span>Perbarui galeri kegiatan & sarana prasarana</span>
+              </li>
+              <li class="feature-item">
+                <div class="feature-icon">
+                  <i class="fa-solid fa-check"></i>
+                </div>
+                <span>Manajemen pengumuman & data guru</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="banner-footer">
+            <span>Butuh bantuan akses?</span>
+            <a href="index.html#kontak">Hubungi Tim IT Sekolah &rarr;</a>
+          </div>
+        </div>
+
+        <!-- Right Side: Login Form -->
+        <div class="login-form-container">
+          <div class="form-header">
+            <div class="admin-badge-icon">
+              <i class="fa-solid fa-lock"></i>
+            </div>
+            <h3>Login Administrator</h3>
+            <p>Masukkan username atau email admin beserta kata sandi yang sah.</p>
+          </div>
+
+          <!-- Form Element -->
+          <form id="loginForm" novalidate>
+            <!-- Username/Email Admin Input -->
+            <div class="form-group">
+              <label for="usernameInput" class="form-label" id="usernameLabel">
+                Username / Email Admin
+              </label>
+              <div class="input-box">
+                <i
+                  class="fa-solid fa-user-shield input-icon"
+                  id="usernameIcon"
+                ></i>
+                <input
+                  type="text"
+                  id="usernameInput"
+                  class="form-input"
+                  placeholder="Masukkan username atau email admin"
+                  required
+                  autocomplete="username"
+                />
+              </div>
+            </div>
+
+            <!-- Password Input -->
+            <div class="form-group">
+              <label for="passwordInput" class="form-label">
+                Kata Sandi
+              </label>
+              <div class="input-box">
+                <i class="fa-solid fa-key input-icon"></i>
+                <input
+                  type="password"
+                  id="passwordInput"
+                  class="form-input"
+                  placeholder="Masukkan kata sandi admin"
+                  required
+                  autocomplete="current-password"
+                />
+                <button
+                  type="button"
+                  class="btn-toggle-password"
+                  id="togglePassword"
+                  title="Tampilkan / Sembunyikan Password"
+                  aria-label="Tampilkan atau sembunyikan password"
+                >
+                  <i class="fa-regular fa-eye"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- Remember Me & Forgot Password -->
+            <div class="form-row-actions">
+              <label class="checkbox-container">
+                <input type="checkbox" id="rememberMe" />
+                <span>Ingat Saya</span>
+              </label>
+              <a href="#" class="link-forgot" id="forgotPasswordLink">
+                Lupa Kata Sandi?
+              </a>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn-submit" id="submitBtn">
+              <span class="spinner" aria-hidden="true"></span>
+              <span class="btn-text">Masuk ke Panel Admin</span>
+              <i class="fa-solid fa-arrow-right-to-bracket"></i>
+            </button>
+          </form>
+
+          <!-- Default Credential Hint Box -->
+          <div class="admin-hint-box" style="margin-top: 18px; padding: 10px 14px; background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 8px; font-size: 0.8rem; color: #475569; display: flex; align-items: center; justify-content: space-between;">
+            <div>
+              <i class="fa-solid fa-key" style="color: #f59e0b; margin-right: 6px;"></i>
+              <span>User: <strong>admin</strong> | Pass: <strong>admin123</strong></span>
+            </div>
+            <button type="button" id="btnQuickFill" style="background: #e2e8f0; border: none; padding: 4px 10px; border-radius: 6px; font-size: 0.74rem; font-weight: 600; cursor: pointer; color: #0b1f3a; transition: all 0.2s;">
+              Isi Otomatis
+            </button>
+          </div>
+
+          <div class="security-note">
+            <i class="fa-solid fa-shield"></i>
+            <span>Halaman ini dilindungi dengan enkripsi keamanan internal sekolah.</span>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer Attribution -->
+    <footer class="login-page-footer">
+      <p>
+        &copy; 2026 SD Negeri 2 Candisari Boyolali. Dikembangkan bersama
+        <strong>Mahasiswa TI UBY</strong>.
+      </p>
+    </footer>
+
+    <!-- Toast Notifications Container -->
+    <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+    <!-- Modal Dialog: Lupa Password Admin -->
+    <div
+      class="modal-overlay"
+      id="forgotModal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modalTitle"
+    >
+      <div class="modal-content">
+        <button
+          type="button"
+          class="modal-close"
+          id="closeModalBtn"
+          aria-label="Tutup Dialog"
+        >
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+
+        <div class="modal-header">
+          <div class="modal-icon-wrapper">
+            <i class="fa-solid fa-key"></i>
+          </div>
+          <h3 id="modalTitle">Pemulihan Akun Admin</h3>
+          <p>
+            Untuk alasan keamanan, pemulihan akun & reset kata sandi administrator dilakukan secara manual melalui Tim IT Sekolah.
+          </p>
+        </div>
+
+        <div class="modal-body">
+          <p>
+            Silakan hubungi kontak resmi administrator sistem SD Negeri 2 Candisari:
+          </p>
+
+          <div class="contact-card-box">
+            <div class="contact-row">
+              <i class="fa-solid fa-envelope"></i>
+              <span>admin@sdn2candisari.sch.id</span>
+            </div>
+            <div class="contact-row">
+              <i class="fa-solid fa-phone"></i>
+              <span>(0276) 000000 / Layanan IT</span>
+            </div>
+            <div class="contact-row">
+              <i class="fa-solid fa-clock"></i>
+              <span>Senin - Sabtu (07.30 - 14.00 WIB)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/login.js"></script>
+  </body>
+</html>
