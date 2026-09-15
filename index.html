@@ -38,7 +38,37 @@
 
     <nav class="nav-links">
       <a href="#home" class="active">Beranda</a>
-      <a href="#profil">Profil</a>
+
+      <!-- Dropdown Profil -->
+      <div class="nav-dropdown" id="navDropdownProfil">
+        <button class="nav-dropdown-btn" id="btnDropdownProfil" aria-haspopup="true" aria-expanded="false">
+          Profil <i class="fa-solid fa-chevron-down nav-caret"></i>
+        </button>
+        <div class="nav-dropdown-menu" id="dropdownMenuProfil" role="menu">
+          <a href="#profil" class="nav-dropdown-item" role="menuitem">
+            <span class="dropdown-icon-wrap"><i class="fa-solid fa-school"></i></span>
+            <span class="dropdown-item-text">
+              <strong>Profil Sekolah</strong>
+              <small>Identitas & informasi umum sekolah</small>
+            </span>
+          </a>
+          <a href="#profil-sambutan" class="nav-dropdown-item" role="menuitem">
+            <span class="dropdown-icon-wrap"><i class="fa-solid fa-user-tie"></i></span>
+            <span class="dropdown-item-text">
+              <strong>Sambutan Kepala Sekolah</strong>
+              <small>Pesan dari Kepala SD Negeri 2 Candisari</small>
+            </span>
+          </a>
+          <a href="#guru" class="nav-dropdown-item" role="menuitem">
+            <span class="dropdown-icon-wrap"><i class="fa-solid fa-graduation-cap"></i></span>
+            <span class="dropdown-item-text">
+              <strong>Jumlah Siswa & Kelas</strong>
+              <small>Data rombongan belajar & peserta didik</small>
+            </span>
+          </a>
+        </div>
+      </div>
+
       <a href="#sejarah">Sejarah</a>
       <a href="#visi-misi">Visi & Misi</a>
       <a href="#fasilitas">Fasilitas</a>
@@ -50,7 +80,6 @@
     </nav>
 
     <div class="navbar-actions">
-      <a href="#prestasi" class="btn-prestasi">Prestasi</a>
       <a href="login.html" class="btn-login-nav">
         <i class="fa-solid fa-user-shield"></i> Login Admin
       </a>
@@ -126,6 +155,11 @@
               <td>:</td>
               <td>B</td>
             </tr>
+            <tr>
+              <td>Jumlah Siswa</td>
+              <td>:</td>
+              <td>70 Siswa (Murid)</td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -146,7 +180,7 @@
   </section>
 
   <!-- ================= SAMBUTAN KEPALA SEKOLAH ================= -->
-  <section class="sambutan" id="sambutan">
+  <section class="sambutan" id="sambutan" style="scroll-margin-top: 100px;"><div id="profil-sambutan" style="scroll-margin-top: 100px;"></div>
     <div class="sambutan-container">
       <!-- Header -->
       <div class="sambutan-header">
@@ -159,7 +193,7 @@
         <!-- Foto Kepala Sekolah -->
         <div class="sambutan-photo">
           <div class="photo-wrapper">
-            <img src="assets/images/bapak sidik.jpg" alt="Kepala Sekolah SD Negeri 2 Candisari" />
+            <img src="assets/images/Bapak Sidik.jpg" alt="Kepala Sekolah SD Negeri 2 Candisari" />
           </div>
 
           <!-- Nama -->
@@ -329,7 +363,7 @@
       </div>
 
       <div class="fasilitas-card">
-        <img src="assets/images/ruang kelas.jpg" alt="Program Siswa Berprestasi" class="program-card-img" />
+        <img src="assets/images/ruang kelas.jpg" alt="Ruang Kelas" class="fasilitas-card-img" />
         <p class="fasilitas-card-caption">Ruang kelas</p>
       </div>
 
@@ -456,6 +490,142 @@
             <span> Guru Profesional </span>
 
             <p>Membimbing siswa dalam kegiatan akademik dan non akademik.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= STATISTIK JUMLAH MURID & KELAS ================= -->
+      <div class="murid-stat-wrapper">
+        <div class="murid-stat-card">
+          <div class="murid-stat-info">
+            <div class="murid-icon-circle">
+              <i class="fa-solid fa-graduation-cap"></i>
+            </div>
+            <div class="murid-text-group">
+              <span class="murid-stat-badge">
+                <i class="fa-solid fa-users"></i> DATA PESERTA DIDIK
+              </span>
+              <h3 class="murid-stat-heading">Statistik Siswa & Rombongan Belajar</h3>
+              <p class="murid-stat-desc" id="muridKeteranganText">
+                SD Negeri 2 Candisari membina dan mendidik <strong>70 murid</strong> aktif dengan lingkungan belajar yang kondusif, interaktif, dan berakhlak mulia.
+              </p>
+            </div>
+          </div>
+
+          <div class="murid-stat-data">
+            <div class="murid-count-box highlight">
+              <span class="murid-count-number" id="totalMuridDisplay">70</span>
+              <span class="murid-count-sub">Total Murid</span>
+            </div>
+
+            <div class="murid-count-box">
+              <span class="murid-count-number" id="totalKelasDisplay" style="color: #60a5fa;">6</span>
+              <span class="murid-count-sub">Jumlah Kelas</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Rincian Jumlah Murid Setiap Kelas 1 sampai 6 -->
+        <div class="murid-classes-container">
+          <div class="murid-classes-title">
+            <i class="fa-solid fa-chalkboard-user"></i>
+            <span>Rincian Jumlah Murid Per Kelas (Kelas 1 - 6)</span>
+          </div>
+
+          <div class="murid-classes-grid">
+            <!-- Kelas 1 -->
+            <div class="class-stat-card">
+              <div class="class-card-header">
+                <span class="class-badge badge-k1">Kelas 1</span>
+                <i class="fa-solid fa-child-reaching class-icon"></i>
+              </div>
+              <div class="class-card-number">
+                <span id="countKelas1">12</span>
+                <small>Murid</small>
+              </div>
+              <div class="class-card-sub">Fase A / Kurikulum Merdeka</div>
+            </div>
+
+            <!-- Kelas 2 -->
+            <div class="class-stat-card">
+              <div class="class-card-header">
+                <span class="class-badge badge-k2">Kelas 2</span>
+                <i class="fa-solid fa-child-reaching class-icon"></i>
+              </div>
+              <div class="class-card-number">
+                <span id="countKelas2">11</span>
+                <small>Murid</small>
+              </div>
+              <div class="class-card-sub">Fase A / Kurikulum Merdeka</div>
+            </div>
+
+            <!-- Kelas 3 -->
+            <div class="class-stat-card">
+              <div class="class-card-header">
+                <span class="class-badge badge-k3">Kelas 3</span>
+                <i class="fa-solid fa-child-reaching class-icon"></i>
+              </div>
+              <div class="class-card-number">
+                <span id="countKelas3">13</span>
+                <small>Murid</small>
+              </div>
+              <div class="class-card-sub">Fase B / Kurikulum Merdeka</div>
+            </div>
+
+            <!-- Kelas 4 -->
+            <div class="class-stat-card">
+              <div class="class-card-header">
+                <span class="class-badge badge-k4">Kelas 4</span>
+                <i class="fa-solid fa-child-reaching class-icon"></i>
+              </div>
+              <div class="class-card-number">
+                <span id="countKelas4">10</span>
+                <small>Murid</small>
+              </div>
+              <div class="class-card-sub">Fase B / Kurikulum Merdeka</div>
+            </div>
+
+            <!-- Kelas 5 -->
+            <div class="class-stat-card">
+              <div class="class-card-header">
+                <span class="class-badge badge-k5">Kelas 5</span>
+                <i class="fa-solid fa-child-reaching class-icon"></i>
+              </div>
+              <div class="class-card-number">
+                <span id="countKelas5">12</span>
+                <small>Murid</small>
+              </div>
+              <div class="class-card-sub">Fase C / Kurikulum Merdeka</div>
+            </div>
+
+            <!-- Kelas 6 -->
+            <div class="class-stat-card">
+              <div class="class-card-header">
+                <span class="class-badge badge-k6">Kelas 6</span>
+                <i class="fa-solid fa-child-reaching class-icon"></i>
+              </div>
+              <div class="class-card-number">
+                <span id="countKelas6">12</span>
+                <small>Murid</small>
+              </div>
+              <div class="class-card-sub">Fase C / Persiapan Kelulusan</div>
+            </div>
+          </div>
+
+          <!-- Summary Bar -->
+          <div class="murid-summary-bar">
+            <div class="summary-chip">
+              <i class="fa-solid fa-school"></i>
+              <span>Total Rombel: <strong id="summaryTotalKelas">6 Kelas</strong></span>
+            </div>
+            <div class="summary-chip highlight-chip">
+              <i class="fa-solid fa-users"></i>
+              <span>Total Keseluruhan: <strong id="summaryTotalMurid">70 Murid</strong></span>
+            </div>
+            <div class="summary-chip">
+              <i class="fa-solid fa-calendar-check"></i>
+              <span>Tahun Ajaran: <strong id="summaryTahunAjaran">2025/2026</strong></span>
+            </div>
           </div>
         </div>
       </div>

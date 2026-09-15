@@ -86,10 +86,10 @@
         </button>
       </li>
       <li class="menu-item">
-        <button type="button" data-tab="prestasi" data-title="Prestasi & Penghargaan"
-          data-subtitle="Daftar kejuaraan dan pencapaian prestasi akademik/non-akademik siswa">
-          <i class="fa-solid fa-trophy"></i>
-          <span>Prestasi Siswa</span>
+        <button type="button" data-tab="siswa" data-title="Data Siswa & Jumlah Murid"
+          data-subtitle="Kelola jumlah kelas, data murid per kelas 1 sampai 6, dan total keseluruhan murid">
+          <i class="fa-solid fa-graduation-cap"></i>
+          <span>Data Siswa & Kelas</span>
         </button>
       </li>
 
@@ -188,6 +188,16 @@
             <div class="stat-details">
               <h3 id="statPpdbStatus">Buka</h3>
               <p>Status PPDB Online</p>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon emerald">
+              <i class="fa-solid fa-graduation-cap"></i>
+            </div>
+            <div class="stat-details">
+              <h3 id="statTotalSiswa">70</h3>
+              <p>Total Siswa (Murid)</p>
             </div>
           </div>
         </div>
@@ -412,64 +422,103 @@
         </form>
       </section>
 
-      <!-- ================= PANEL 7: PRESTASI ================= -->
-      <section class="tab-panel" id="panel-prestasi">
-        <div class="form-card">
-          <h3 class="form-card-title">
-            <i class="fa-solid fa-trophy"></i> Tambah Prestasi Siswa
-          </h3>
-          <form id="formPrestasi">
-            <div class="form-grid-2">
-              <div class="form-group">
-                <label class="form-label" for="prestasiNama">Nama Kejuaraan / Lomba</label>
-                <input type="text" id="prestasiNama" class="form-control"
-                  placeholder="Contoh: Juara 1 Lomba Cerdas Cermat" required />
-              </div>
-              <div class="form-group">
-                <label class="form-label" for="prestasiTingkat">Tingkat Kejuaraan</label>
-                <input type="text" id="prestasiTingkat" class="form-control"
-                  placeholder="Contoh: Kecamatan / Kabupaten / Provinsi" required />
-              </div>
-            </div>
+      <!-- ================= PANEL: DATA SISWA & KELAS ================= -->
+      <section class="tab-panel" id="panel-siswa">
+        <form id="formSiswa">
+          <div class="form-card">
+            <h3 class="form-card-title">
+              <i class="fa-solid fa-graduation-cap"></i> Pengelolaan Data Siswa & Rombongan Belajar
+            </h3>
+            <p style="font-size: 0.88rem; color: #64748b; margin-bottom: 20px;">
+              Atur jumlah rombel, jumlah murid masing-masing kelas (Kelas 1 - 6), dan total siswa. Data ini akan otomatis ditampilkan pada beranda website.
+            </p>
 
             <div class="form-grid-2">
               <div class="form-group">
-                <label class="form-label" for="prestasiTahun">Tahun Perolehan</label>
-                <input type="text" id="prestasiTahun" class="form-control" value="2026" required />
+                <label class="form-label" for="siswaJumlahKelas">Jumlah Kelas / Rombel</label>
+                <input type="number" id="siswaJumlahKelas" class="form-control" value="6" min="1" max="20" required />
               </div>
               <div class="form-group">
-                <label class="form-label" for="prestasiPeraih">Nama Siswa / Tim Peraih</label>
-                <input type="text" id="prestasiPeraih" class="form-control" placeholder="Nama siswa atau tim"
-                  required />
+                <label class="form-label" for="siswaTahunAjaran">Tahun Ajaran Aktif</label>
+                <input type="text" id="siswaTahunAjaran" class="form-control" value="2025/2026" required />
               </div>
+            </div>
+
+            <div style="margin: 20px 0 10px; font-weight: 700; color: #0b1f3a; font-size: 0.95rem; display: flex; align-items: center; gap: 8px;">
+              <i class="fa-solid fa-users-rectangle" style="color: #f59e0b;"></i>
+              <span>Rincian Jumlah Murid Per Kelas (Kelas 1 s/d 6)</span>
+            </div>
+
+            <div class="form-grid-3">
+              <div class="form-group">
+                <label class="form-label" for="siswaKelas1">
+                  <i class="fa-solid fa-1" style="font-size: 0.75rem; color: #3b82f6;"></i> Murid Kelas 1
+                </label>
+                <input type="number" id="siswaKelas1" class="form-control class-input" value="12" min="0" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="siswaKelas2">
+                  <i class="fa-solid fa-2" style="font-size: 0.75rem; color: #3b82f6;"></i> Murid Kelas 2
+                </label>
+                <input type="number" id="siswaKelas2" class="form-control class-input" value="11" min="0" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="siswaKelas3">
+                  <i class="fa-solid fa-3" style="font-size: 0.75rem; color: #3b82f6;"></i> Murid Kelas 3
+                </label>
+                <input type="number" id="siswaKelas3" class="form-control class-input" value="13" min="0" required />
+              </div>
+            </div>
+
+            <div class="form-grid-3">
+              <div class="form-group">
+                <label class="form-label" for="siswaKelas4">
+                  <i class="fa-solid fa-4" style="font-size: 0.75rem; color: #3b82f6;"></i> Murid Kelas 4
+                </label>
+                <input type="number" id="siswaKelas4" class="form-control class-input" value="10" min="0" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="siswaKelas5">
+                  <i class="fa-solid fa-5" style="font-size: 0.75rem; color: #3b82f6;"></i> Murid Kelas 5
+                </label>
+                <input type="number" id="siswaKelas5" class="form-control class-input" value="12" min="0" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="siswaKelas6">
+                  <i class="fa-solid fa-6" style="font-size: 0.75rem; color: #3b82f6;"></i> Murid Kelas 6
+                </label>
+                <input type="number" id="siswaKelas6" class="form-control class-input" value="12" min="0" required />
+              </div>
+            </div>
+
+            <div class="form-group" style="background: #f8fafc; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; margin-top: 10px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                <label class="form-label" for="siswaTotalMurid" style="font-weight: 700; color: #0b1f3a; margin-bottom: 0;">
+                  Total Keseluruhan Murid
+                </label>
+                <span style="font-size: 0.75rem; background: #e0f2fe; color: #0369a1; padding: 2px 8px; border-radius: 6px; font-weight: 600;">
+                  <i class="fa-solid fa-calculator"></i> Dihitung Otomatis
+                </span>
+              </div>
+              <input type="number" id="siswaTotalMurid" class="form-control" value="70" min="0" style="font-size: 1.25rem; font-weight: 800; color: #0b1f3a; background: #ffffff;" required />
+              <small style="display: block; color: #64748b; font-size: 0.78rem; margin-top: 4px;">
+                Nilai total otomatis dijumlahkan dari Kelas 1 s/d 6, dan tetap dapat Anda sesuaikan jika diperlukan.
+              </small>
+            </div>
+
+            <div class="form-group" style="margin-top: 18px;">
+              <label class="form-label" for="siswaKeterangan">Keterangan / Deskripsi Statistik</label>
+              <textarea id="siswaKeterangan" class="form-control" rows="2" placeholder="Catatan atau deskripsi mengenai peserta didik...">SD Negeri 2 Candisari membina dan mendidik 70 murid aktif dengan lingkungan belajar yang kondusif, interaktif, dan berakhlak mulia.</textarea>
             </div>
 
             <button type="submit" class="btn-primary-add">
-              <i class="fa-solid fa-plus"></i> Tambah Data Prestasi
+              <i class="fa-solid fa-floppy-disk"></i> Simpan Data Siswa
             </button>
-          </form>
-        </div>
-
-        <div class="table-responsive" style="margin-top: 24px;">
-          <table class="admin-table">
-            <thead>
-              <tr>
-                <th style="width: 50px;">No</th>
-                <th>Nama Kejuaraan</th>
-                <th>Tingkat</th>
-                <th>Tahun</th>
-                <th>Peraih / Siswa</th>
-                <th style="width: 80px;">Aksi</th>
-              </tr>
-            </thead>
-            <tbody id="tableBodyPrestasi">
-              <!-- Dynamic Rows -->
-            </tbody>
-          </table>
-        </div>
+          </div>
+        </form>
       </section>
 
-      <!-- ================= PANEL 8: KONTAK & MEDSOS ================= -->
+      <!-- ================= PANEL 7: KONTAK & MEDSOS ================= -->
       <section class="tab-panel" id="panel-kontak">
         <form id="formKontak">
           <div class="form-card">

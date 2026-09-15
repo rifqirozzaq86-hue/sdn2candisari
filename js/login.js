@@ -13,18 +13,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const forgotModal = document.getElementById("forgotModal");
   const closeModalBtn = document.getElementById("closeModalBtn");
   const toastContainer = document.getElementById("toastContainer");
-  const btnQuickFill = document.getElementById("btnQuickFill");
-
-  // Quick fill default credentials
-  if (btnQuickFill && usernameInput && passwordInput) {
-    btnQuickFill.addEventListener("click", () => {
-      usernameInput.value = "admin";
-      passwordInput.value = "admin123";
-      usernameInput.classList.remove("is-invalid");
-      passwordInput.classList.remove("is-invalid");
-      showToast("Kredensial Dimuat", "Username dan Password default berhasil diisikan.", "success");
-    });
-  }
 
   // 1. Toggle Password Visibility
   if (togglePasswordBtn && passwordInput) {
@@ -171,6 +159,8 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
         setTimeout(() => {
+          // Set session flag agar admin.html dapat memverifikasi login
+          sessionStorage.setItem("isAdminLoggedIn", "true");
           window.location.href = "admin.html";
         }, 1200);
       }, 1200);

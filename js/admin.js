@@ -2,6 +2,15 @@
 // LOGIKA DASHBOARD ADMINISTRATOR - SD NEGERI 2 CANDISARI
 // =========================================================
 
+// ─── PROTEKSI SESI: Hanya boleh diakses setelah login ────
+(function checkAdminSession() {
+  if (!sessionStorage.getItem("isAdminLoggedIn")) {
+    // Tampilkan pesan singkat lalu redirect ke halaman login
+    alert("⚠️ Sesi tidak valid. Silakan login terlebih dahulu untuk mengakses halaman admin.");
+    window.location.replace("login.html");
+  }
+})();
+
 document.addEventListener("DOMContentLoaded", () => {
   // --- State & Default Initial Data ---
   const initialData = {
@@ -93,11 +102,18 @@ document.addEventListener("DOMContentLoaded", () => {
       biaya: "Gratis (0 Rupiah)",
       deskripsi: "Tujuan PPDB adalah untuk memastikan penerimaan peserta didik baru berjalan secara objektif, transparan, akuntabel, non diskriminatif, dan berkeadilan.",
     },
-    prestasi: [
-      { id: 1, namaLomba: "Juara 1 Lomba Cerdas Cermat", tingkat: "Kecamatan Ampel", tahun: "2026", peraih: "Tim Cerdas Cermat SD 2" },
-      { id: 2, namaLomba: "Juara 2 Atletik Putra O2SN", tingkat: "Kabupaten Boyolali", tahun: "2025", peraih: "Ahmad Rizky" },
-      { id: 3, namaLomba: "Juara Harapan 1 Tari Tradisional", tingkat: "Kabupaten Boyolali", tahun: "2025", peraih: "Sanggar Seni Sekolah" },
-    ],
+    siswa: {
+      jumlahKelas: 6,
+      tahunAjaran: "2025/2026",
+      kelas1: 12,
+      kelas2: 11,
+      kelas3: 13,
+      kelas4: 10,
+      kelas5: 12,
+      kelas6: 12,
+      totalMurid: 70,
+      keterangan: "SD Negeri 2 Candisari membina dan mendidik 70 murid aktif dengan lingkungan belajar yang kondusif, interaktif, dan berakhlak mulia.",
+    },
     kontak: {
       alamatLengkap: "Candisari, Kec. Ampel, Kabupaten Boyolali, Jawa Tengah 57352",
       emailUtama: "sdn2candisari@example.com",
@@ -115,7 +131,16 @@ document.addEventListener("DOMContentLoaded", () => {
     const saved = localStorage.getItem("sdn2_admin_data");
     if (saved) {
       try {
-        return JSON.parse(saved);
+        const parsed = JSON.parse(saved);
+        if (parsed.prestasi) {
+          delete parsed.prestasi;
+          localStorage.setItem("sdn2_admin_data", JSON.stringify(parsed));
+        }
+        if (!parsed.siswa) {
+          parsed.siswa = { ...initialData.siswa };
+          localStorage.setItem("sdn2_admin_data", JSON.stringify(parsed));
+        }
+        return parsed;
       } catch (e) {
         console.error("Error parsing localStorage data", e);
       }
@@ -218,6 +243,9 @@ document.addEventListener("DOMContentLoaded", () => {
     if (statGuru) statGuru.textContent = db.guru.length;
     if (statGaleri) statGaleri.textContent = db.galeri.length;
     if (statPpdb) statPpdb.textContent = db.ppdb.statusPpdb || "Buka";
+
+    const statSiswa = document.getElementById("statTotalSiswa");
+    if (statSiswa) statSiswa.textContent = db.siswa?.totalMurid ?? 70;
   }
 
   // --- 4. Render Modul Profil ---
@@ -681,57 +709,69 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // --- 9. Render Modul Prestasi ---
-  function renderPrestasiTable() {
-    const tbody = document.getElementById("tableBodyPrestasi");
-    if (!tbody) return;
-    tbody.innerHTML = "";
+  // --- 9. Render Modul Siswa & Rombel ---
+  function initSiswaForm() {
+    const form = document.getElementById("formSiswa");
+    if (!form) return;
 
-    db.prestasi.forEach((item, index) => {
-      const tr = document.createElement("tr");
-      tr.innerHTML = `
-        <td>${index + 1}</td>
-        <td><strong>${item.namaLomba}</strong></td>
-        <td><span class="badge-status active">${item.tingkat}</span></td>
-        <td>${item.tahun}</td>
-        <td>${item.peraih}</td>
-        <td>
-          <div class="table-actions">
-            <button class="btn-action delete" data-id="${item.id}" title="Hapus Prestasi"><i class="fa-solid fa-trash-can"></i></button>
-          </div>
-        </td>
-      `;
+    if (!db.siswa) {
+      db.siswa = { ...initialData.siswa };
+    }
 
-      tr.querySelector(".btn-action.delete").addEventListener("click", () => {
-        if (confirm(`Hapus prestasi "${item.namaLomba}"?`)) {
-          db.prestasi = db.prestasi.filter((p) => p.id !== item.id);
-          saveData(db);
-          renderPrestasiTable();
-          showToast("Prestasi Dihapus", "Data prestasi berhasil dihapus.");
-        }
-      });
+    const inputJmlKelas = document.getElementById("siswaJumlahKelas");
+    const inputThnAjaran = document.getElementById("siswaTahunAjaran");
+    const inputK1 = document.getElementById("siswaKelas1");
+    const inputK2 = document.getElementById("siswaKelas2");
+    const inputK3 = document.getElementById("siswaKelas3");
+    const inputK4 = document.getElementById("siswaKelas4");
+    const inputK5 = document.getElementById("siswaKelas5");
+    const inputK6 = document.getElementById("siswaKelas6");
+    const inputTotal = document.getElementById("siswaTotalMurid");
+    const inputKet = document.getElementById("siswaKeterangan");
 
-      tbody.appendChild(tr);
+    if (inputJmlKelas) inputJmlKelas.value = db.siswa.jumlahKelas || 6;
+    if (inputThnAjaran) inputThnAjaran.value = db.siswa.tahunAjaran || "2025/2026";
+    if (inputK1) inputK1.value = db.siswa.kelas1 ?? 12;
+    if (inputK2) inputK2.value = db.siswa.kelas2 ?? 11;
+    if (inputK3) inputK3.value = db.siswa.kelas3 ?? 13;
+    if (inputK4) inputK4.value = db.siswa.kelas4 ?? 10;
+    if (inputK5) inputK5.value = db.siswa.kelas5 ?? 12;
+    if (inputK6) inputK6.value = db.siswa.kelas6 ?? 12;
+    if (inputTotal) inputTotal.value = db.siswa.totalMurid ?? 70;
+    if (inputKet) inputKet.value = db.siswa.keterangan || "";
+
+    // Kalkulasi otomatis saat input murid per kelas diubah
+    const classInputs = [inputK1, inputK2, inputK3, inputK4, inputK5, inputK6];
+    classInputs.forEach((input) => {
+      if (input) {
+        input.addEventListener("input", () => {
+          let sum = 0;
+          classInputs.forEach((inp) => {
+            const val = parseInt(inp && inp.value ? inp.value : 0, 10);
+            if (!isNaN(val)) sum += val;
+          });
+          if (inputTotal) inputTotal.value = sum;
+        });
+      }
     });
-  }
 
-  // Form Prestasi
-  const formPrestasi = document.getElementById("formPrestasi");
-  if (formPrestasi) {
-    formPrestasi.addEventListener("submit", (e) => {
+    form.addEventListener("submit", (e) => {
       e.preventDefault();
-      const namaLomba = document.getElementById("prestasiNama").value.trim();
-      const tingkat = document.getElementById("prestasiTingkat").value.trim();
-      const tahun = document.getElementById("prestasiTahun").value.trim();
-      const peraih = document.getElementById("prestasiPeraih").value.trim();
-
-      const newId = db.prestasi.length > 0 ? Math.max(...db.prestasi.map((p) => p.id)) + 1 : 1;
-      db.prestasi.unshift({ id: newId, namaLomba, tingkat, tahun, peraih });
+      db.siswa = {
+        jumlahKelas: parseInt(inputJmlKelas.value, 10) || 6,
+        tahunAjaran: inputThnAjaran.value.trim(),
+        kelas1: parseInt(inputK1.value, 10) || 0,
+        kelas2: parseInt(inputK2.value, 10) || 0,
+        kelas3: parseInt(inputK3.value, 10) || 0,
+        kelas4: parseInt(inputK4.value, 10) || 0,
+        kelas5: parseInt(inputK5.value, 10) || 0,
+        kelas6: parseInt(inputK6.value, 10) || 0,
+        totalMurid: parseInt(inputTotal.value, 10) || 0,
+        keterangan: inputKet.value.trim(),
+      };
 
       saveData(db);
-      renderPrestasiTable();
-      formPrestasi.reset();
-      showToast("Prestasi Ditambahkan", "Data prestasi baru berhasil dicatat.");
+      showToast("Data Siswa Disimpan", `Data statistik siswa (${db.siswa.totalMurid} murid) berhasil diperbarui.`);
     });
   }
 
@@ -778,6 +818,8 @@ document.addEventListener("DOMContentLoaded", () => {
   if (btnLogout) {
     btnLogout.addEventListener("click", () => {
       if (confirm("Keluar dari Panel Administrator?")) {
+        // Hapus sesi login agar URL admin tidak bisa diakses langsung
+        sessionStorage.removeItem("isAdminLoggedIn");
         window.location.href = "login.html";
       }
     });
@@ -790,6 +832,6 @@ document.addEventListener("DOMContentLoaded", () => {
   renderGuruTable();
   renderGaleriGrid();
   initPpdbForm();
-  renderPrestasiTable();
+  initSiswaForm();
   initKontakForm();
 });
