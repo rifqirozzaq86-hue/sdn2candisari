@@ -167,27 +167,25 @@ function syncWebsiteContent() {
 
   // A. Sinkronisasi Berita Terbaru
   if (db.berita && Array.isArray(db.berita)) {
-    const newsGrid = document.querySelector(".news-grid");
-    if (newsGrid && db.berita.length > 0) {
-      newsGrid.innerHTML = "";
+    const beritaGrid = document.querySelector(".berita-grid, .news-grid");
+    if (beritaGrid && db.berita.length > 0) {
+      beritaGrid.innerHTML = "";
       db.berita.forEach((item) => {
         const article = document.createElement("article");
-        article.className = "news-card";
+        article.className = "berita-card";
         article.innerHTML = `
-          <div class="news-img-box">
-            <img src="${item.gambar}" alt="${item.judul}" class="news-img" onerror="this.src='assets/images/perpus.jpg'" />
+          <div class="berita-img-wrapper">
+            <img src="${item.gambar}" alt="${item.judul}" class="berita-card-img" onerror="this.src='assets/images/perpus.jpg'" />
+            <span class="berita-badge-tag"><i class="fa-solid fa-calendar-day"></i> ${formatDateIndo(item.tanggal)}</span>
           </div>
-          <div class="news-content">
-            <div class="news-date">
-              <span class="calendar-icon"></span>
-              ${formatDateIndo(item.tanggal)}
-            </div>
-            <h3 class="news-card-title">${item.judul}</h3>
-            <p class="news-card-desc">${item.ringkasan}</p>
-            <a href="#" class="news-link">Selengkapnya &rarr;</a>
+          <div class="berita-body">
+            <span class="berita-kategori-chip"><i class="fa-solid fa-tag"></i> ${item.kategori || "Kegiatan"}</span>
+            <h3 class="berita-card-title">${item.judul}</h3>
+            <p class="berita-card-text">${item.ringkasan || ""}</p>
+            <a href="#" class="berita-readmore"><i class="fa-solid fa-arrow-right"></i> Selengkapnya</a>
           </div>
         `;
-        newsGrid.appendChild(article);
+        beritaGrid.appendChild(article);
       });
     }
   }
@@ -201,10 +199,13 @@ function syncWebsiteContent() {
         const card = document.createElement("div");
         card.className = "guru-card";
         card.innerHTML = `
-          <img src="${item.gambar}" alt="${item.nama}" onerror="this.src='assets/images/Bapak Seno.jpg'" />
+          <div class="guru-img-wrapper">
+            <img src="${item.gambar}" alt="${item.nama}" onerror="this.src='assets/images/Bapak Seno.jpg'" />
+            <span class="guru-role-badge"><i class="fa-solid fa-chalkboard-user"></i> ${item.jabatan || "Tenaga Pendidik"}</span>
+          </div>
           <div class="desk-guru">
             <h3>${item.nama}</h3>
-            <span>${item.jabatan}</span>
+            <span class="guru-jabatan-chip">${item.jabatan || "Guru Profesional"}</span>
             <p>NIP: ${item.nip || "-"}</p>
           </div>
         `;
@@ -215,14 +216,19 @@ function syncWebsiteContent() {
 
   // C. Sinkronisasi Galeri Foto
   if (db.galeri && Array.isArray(db.galeri)) {
-    const galleryGrid = document.querySelector(".gallery-grid");
+    const galleryGrid = document.querySelector(".galeri-grid, .gallery-grid");
     if (galleryGrid && db.galeri.length > 0) {
       galleryGrid.innerHTML = "";
       db.galeri.forEach((item) => {
         const div = document.createElement("div");
-        div.className = "gallery-item";
+        div.className = "galeri-item";
         div.innerHTML = `
-          <img src="${item.gambar}" alt="${item.judul}" onerror="this.src='assets/images/masjid.jpg'" />
+          <div class="galeri-img-wrapper">
+            <img src="${item.gambar}" alt="${item.judul}" onerror="this.src='assets/images/masjid.jpg'" />
+            <div class="galeri-overlay">
+              <span class="galeri-overlay-chip"><i class="fa-solid fa-camera"></i> ${item.kategori || item.judul || "Kegiatan"}</span>
+            </div>
+          </div>
         `;
         galleryGrid.appendChild(div);
       });
@@ -242,30 +248,41 @@ function syncWebsiteContent() {
     }
   }
 
-  // E. Sinkronisasi Profil Sekolah & Sambutan
+  // E. Sinkronisasi Profil Sekolah, Sambutan & Sejarah
   if (db.profil) {
     const profilTable = document.querySelector(".profil-table tbody");
     if (profilTable) {
       const rows = profilTable.querySelectorAll("tr");
       rows.forEach((row) => {
-        const tdLabel = row.cells[0]?.textContent.trim();
-        if (tdLabel === "Nama Sekolah" && db.profil.namaSekolah) row.cells[2].textContent = db.profil.namaSekolah;
-        if (tdLabel === "Kepala Sekolah" && db.profil.kepalaSekolah) row.cells[2].textContent = db.profil.kepalaSekolah;
-        if (tdLabel === "NPSN" && db.profil.npsn) row.cells[2].textContent = db.profil.npsn;
-        if (tdLabel === "Status" && db.profil.statusSekolah) row.cells[2].textContent = db.profil.statusSekolah;
-        if (tdLabel === "Akreditasi" && db.profil.akreditasi) row.cells[2].textContent = db.profil.akreditasi;
-        if (tdLabel === "Jumlah Siswa") row.cells[2].textContent = (db.profil.jumlahMurid || "70") + " Siswa (Murid)";
+        const tdLabel = row.cells[0]?.textContent.trim() || "";
+        if (tdLabel.includes("Nama Sekolah") && db.profil.namaSekolah) row.cells[2].textContent = db.profil.namaSekolah;
+        if (tdLabel.includes("Kepala Sekolah") && db.profil.kepalaSekolah) row.cells[2].textContent = db.profil.kepalaSekolah;
+        if (tdLabel.includes("NPSN") && db.profil.npsn) row.cells[2].innerHTML = `<span class="data-tag">${db.profil.npsn}</span>`;
+        if (tdLabel.includes("Status") && db.profil.statusSekolah) row.cells[2].innerHTML = `<span class="data-badge badge-status">${db.profil.statusSekolah}</span>`;
+        if (tdLabel.includes("Akreditasi") && db.profil.akreditasi) row.cells[2].innerHTML = `<span class="data-badge badge-akreditasi">${db.profil.akreditasi}</span>`;
+        if (tdLabel.includes("Jumlah Siswa")) {
+          const totalMurid = db.siswa?.totalMurid ?? db.profil.jumlahMurid ?? 70;
+          row.cells[2].innerHTML = `<strong>${totalMurid} Siswa (Murid)</strong>`;
+        }
       });
     }
 
     const muridCountEl = document.getElementById("jumlahMuridCount");
-    if (muridCountEl && db.profil.jumlahMurid) {
-      muridCountEl.textContent = db.profil.jumlahMurid;
+    const totalMuridValue = db.siswa?.totalMurid ?? db.profil.jumlahMurid ?? 70;
+    if (muridCountEl && totalMuridValue) {
+      muridCountEl.textContent = totalMuridValue;
     }
 
     const namaKepalaEl = document.querySelector(".nama-kepala span");
     if (namaKepalaEl && db.profil.kepalaSekolah) {
       namaKepalaEl.textContent = db.profil.kepalaSekolah;
+    }
+
+    if (db.profil.sejarah) {
+      const sejarahEl = document.querySelector(".sejarah-content p");
+      if (sejarahEl) {
+        sejarahEl.textContent = db.profil.sejarah;
+      }
     }
   }
 
@@ -323,13 +340,12 @@ function syncWebsiteContent() {
       elKet.innerHTML = db.siswa.keterangan.replace(/(\d+\s*murid)/i, "<strong>$1</strong>");
     }
 
-    // Perbarui juga baris profil tabel
     const profilTable = document.querySelector(".profil-table tbody");
     if (profilTable) {
       const rows = profilTable.querySelectorAll("tr");
       rows.forEach((row) => {
-        if (row.cells[0]?.textContent.trim() === "Jumlah Siswa") {
-          row.cells[2].textContent = `${totalMurid} Siswa (${jumlahKelas} Rombel)`;
+        if (row.cells[0]?.textContent.trim().includes("Jumlah Siswa")) {
+          row.cells[2].innerHTML = `<strong>${totalMurid} Siswa (${jumlahKelas} Rombel)</strong>`;
         }
       });
     }
